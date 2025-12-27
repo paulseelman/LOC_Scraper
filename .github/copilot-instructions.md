@@ -36,7 +36,11 @@ Purpose: Help an AI coding agent be productive quickly by summarizing the projec
 - Speed up/debug runs: lower `--polite-delay` and `--count` (but be considerate of LoC servers).
 
 ## Testing & changing network behavior (practical guidance) ✅
-- There are no tests currently — when adding tests, mock external HTTP calls:
+- A minimal pytest-based test suite has been added in `tests/` covering `_find_image_urls`, `_sanitize_name`, `_compute_file_hash`, and `_image_head_info` (HEAD fallback). Run it with:
+  1. `python -m pip install -r requirements.txt`
+  2. `python -m pytest`
+
+- When adding more tests, mock external HTTP calls:
   - Prefer `responses` or `requests-mock` to simulate LoC endpoints and image servers.
   - Unit-test helpers: `_find_image_urls`, `_sanitize_name`, `_compute_file_hash`, and HEAD fallback in `_image_head_info`.
   - Integration tests should use mocked `requests.Session` so they run offline and deterministically.
@@ -52,6 +56,10 @@ Purpose: Help an AI coding agent be productive quickly by summarizing the projec
 - Add `requirements.txt` with `requests` pinned (use versions compatible with Python 3.8+).
 - Add a small `tests/` directory with mocked network tests for `fetch_json_page` and `_image_head_info`.
 - Convert prints to `logging` only if adding a small migration (change README noting new usage).
+
+## CI / GitHub Actions ✅
+- A simple GitHub Actions workflow (`.github/workflows/python-tests.yml`) runs `pytest` on pushes and pull requests to `main`/`master` using Python 3.8-3.10.
+- The job installs `requirements.txt` if present, otherwise falls back to installing `requests`, `pytest`, and `responses`.
 
 ---
 If any areas are unclear or you'd like more examples (test snippets, suggested `requirements.txt`, or a starter test file), tell me which piece to add or iterate on. 🔁
