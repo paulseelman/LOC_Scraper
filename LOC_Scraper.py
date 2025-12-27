@@ -99,6 +99,9 @@ def _find_image_urls(obj: Any) -> List[str]:
     """
     Recurse into the item dict/list and return list of discovered image URLs.
     Simple heuristic: strings starting with http and ending with a common image extension.
+
+    Special-case for LoC tile URLs: when we see a `.../service/...r.jpg` URL, also construct
+    the corresponding master TIFF `.../master/...u.tif` (higher-resolution master image).
     """
     urls = set()
     image_exts = ('.jpg', '.jpeg', '.png', '.gif', '.tif', '.tiff', '.webp', '.bmp')
@@ -109,9 +112,18 @@ def _find_image_urls(obj: Any) -> List[str]:
         for v in obj:
             urls.update(_find_image_urls(v))
     elif isinstance(obj, str):
-        lower = obj.lower().split('?', 1)[0]
+        # preserve original URL (with query) when returning, but use lowercase/no-query for checks
+        no_query = obj.split('?', 1)[0]
+        lower = no_query.lower()
         if lower.startswith('http') and lower.endswith(image_exts):
             urls.add(obj)
+
+            # Construct LoC master TIFF when encountering service r.jpg/jpeg URLs
+            if '/service/' in lower and (lower.endswith('r.jpg') or lower.endswith('r.jpeg')):
+                # replace first /service/ with /master/ and replace r.jpg|r.jpeg -> u.tif
+                constructed = re.sub(r'/service/', '/master/', no_query, count=1)
+                constructed = re.sub(r'r\.jpe?g$', 'u.tif', constructed, flags=re.IGNORECASE)
+                urls.add(constructed)
     return list(urls)
 
 
