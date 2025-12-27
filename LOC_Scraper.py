@@ -11,6 +11,9 @@ from urllib.parse import urlencode, urlparse, urlunparse, parse_qsl
 from email.utils import parsedate_to_datetime
 
 import requests
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def build_url_with_params(base_url: str, params: Dict[str, Any]) -> str:
@@ -87,9 +90,9 @@ def process_item(item: Any) -> None:
     if isinstance(item, dict):
         title = item.get("title")
         url = item.get("url")
-        print(f"{title} | {url}")
+        logger.info(f"{title} | {url}")
     else:
-        print(json.dumps(item, ensure_ascii=False))
+        logger.info(json.dumps(item, ensure_ascii=False))
 
 
 def _find_image_urls(obj: Any) -> List[str]:
@@ -176,19 +179,19 @@ def _save_item_and_images(session: requests.Session, item: Any, out_dir: str, id
                 try:
                     existing = json.load(existing_json_path.open('r', encoding='utf-8'))
                     if existing == item:
-                        print(f"Skipping JSON for {folder_name} (unchanged)")
+                        logger.info(f"Skipping JSON for {folder_name} (unchanged)")
                     else:
                         json.dump(item, existing_json_path.open('w', encoding='utf-8'), ensure_ascii=False, indent=2)
-                        print(f"Updated JSON for {folder_name}")
+                        logger.info(f"Updated JSON for {folder_name}")
                 except (ValueError, OSError):
                     # if existing file is unreadable, overwrite
                     json.dump(item, existing_json_path.open('w', encoding='utf-8'), ensure_ascii=False, indent=2)
-                    print(f"Wrote JSON for {folder_name} (replaced corrupted file)")
+                    logger.info(f"Wrote JSON for {folder_name} (replaced corrupted file)")
             else:
                 with open(existing_json_path, 'w', encoding='utf-8') as fh:
                     json.dump(item, fh, ensure_ascii=False, indent=2)
         except OSError as e:
-            print(f"Warning: failed to write JSON for {folder_name}: {e}")
+            logger.warning(f"Failed to write JSON for {folder_name}: {e}")
 
     # find image urls
     if download_images:
@@ -230,12 +233,12 @@ def _save_item_and_images(session: requests.Session, item: Any, out_dir: str, id
                     try:
                         if clen is not None:
                             if dst.stat().st_size == clen:
-                                print(f"Skipping image (exists, same size): {dst}")
+                                logger.info(f"Skipping image (exists, same size): {dst}")
                                 skipped = True
                         if not skipped and lm is not None:
                             # compare file mtime to last-modified
                             if dst.stat().st_mtime >= lm:
-                                print(f"Skipping image (exists, not older): {dst}")
+                                logger.info(f"Skipping image (exists, not older): {dst}")
                                 skipped = True
                         if not skipped and clen is None and lm is None:
                             # fallback: compare hash by downloading to temp
@@ -249,12 +252,12 @@ def _save_item_and_images(session: requests.Session, item: Any, out_dir: str, id
                                     tmpf.flush()
                                     tmp_path = Path(tmpf.name)
                                     if _compute_file_hash(tmp_path) == _compute_file_hash(dst):
-                                        print(f"Skipping image (exists, identical content): {dst}")
+                                        logger.info(f"Skipping image (exists, identical content): {dst}")
                                         skipped = True
                                     else:
                                         # move into place (overwrite)
                                         tmp_path.replace(dst)
-                                        print(f"Replaced image (content changed): {dst}")
+                                        logger.info(f"Replaced image (content changed): {dst}")
                                         saved += 1
                                 finally:
                                     # ensure no leftover if we replaced
@@ -287,7 +290,7 @@ def _save_item_and_images(session: requests.Session, item: Any, out_dir: str, id
                             dst_final = item_dir / f"{dst.stem}_{i}{dst.suffix}"
                             i += 1
                         tmp_path.replace(dst_final)
-                        print(f"Saved image: {dst_final}")
+                        logger.info(f"Saved image: {dst_final}")
                         saved += 1
                     finally:
                         # cleanup if something went wrong and tmpf still exists
@@ -298,7 +301,7 @@ def _save_item_and_images(session: requests.Session, item: Any, out_dir: str, id
                                 pass
 
             except requests.RequestException as e:
-                print(f"Warning: failed to download {url}: {e}")
+                logger.warning(f"Failed to download {url}: {e}")
 
 
 def paginate_and_iterate_child_loc(
@@ -347,7 +350,7 @@ def paginate_and_iterate_child_loc(
             items = get_child_list(data, child_key)
 
             if not items:
-                print(f"Stopping: no '{child_key}' items found at sp={sp}. Total processed: {total_processed}")
+                logger.info(f"Stopping: no '{child_key}' items found at sp={sp}. Total processed: {total_processed}")
                 break
 
             for item in items:
@@ -364,14 +367,14 @@ def paginate_and_iterate_child_loc(
                         skip_existing=skip_existing,
                     )
                 except Exception as e:
-                    print(f"Warning: error saving item {total_processed + 1}: {e}")
+                    logger.warning(f"Error saving item {total_processed + 1}: {e}")
 
                 total_processed += 1
 
-            print(f"Processed sp={sp}: {len(items)} items (total {total_processed})")
+            logger.info(f"Processed sp={sp}: {len(items)} items (total {total_processed})")
 
             if stop_on_short_page and len(items) < count_c:
-                print(f"Stopping: sp={sp} returned {len(items)} (< {count_c}). Total processed: {total_processed}")
+                logger.info(f"Stopping: sp={sp} returned {len(items)} (< {count_c}). Total processed: {total_processed}")
                 break
 
             sp += 1
@@ -390,7 +393,11 @@ def main():
     parser.add_argument("--no-download-images", action="store_true", help="Do not download images")
     parser.add_argument("--no-save-json", action="store_true", help="Do not save item JSON files")
     parser.add_argument("--no-skip-existing", action="store_true", help="Do not skip existing JSON/images; always re-download/overwrite")
+    parser.add_argument("--log-level", default="INFO", choices=["DEBUG","INFO","WARNING","ERROR"], help="Logging level (default: INFO)")
     args = parser.parse_args()
+
+    # Configure logging according to CLI flag
+    logging.basicConfig(level=getattr(logging, args.log_level), format="%(levelname)s: %(message)s")
 
     paginate_and_iterate_child_loc(
         base_url=args.base_url,

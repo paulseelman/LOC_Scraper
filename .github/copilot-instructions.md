@@ -20,7 +20,7 @@ Purpose: Help an AI coding agent be productive quickly by summarizing the projec
 
 ## Project-specific conventions & patterns 🔧
 - CLI-first, single-script design: changes should preserve a simple CLI usage model.
-- No `logging` module used — diagnostic messages are `print()` calls and ``Warning:`` lines; keep changes consistent unless you migrate whole project to logging.
+- Output now uses Python's `logging`; diagnostic messages use `logging` and are controllable via the `--log-level` CLI flag (default: `INFO`).
 - Network operations use a single `requests.Session()` for efficiency and are resilient:
   - `fetch_json_page()` retries up to `max_retries` with exponential backoff.
   - Image HEAD uses a fallback GET (Range 0-0) when HEAD returns 405.
@@ -55,7 +55,7 @@ Purpose: Help an AI coding agent be productive quickly by summarizing the projec
 - Add unit tests for `_find_image_urls` and `_sanitize_name`.
 - Add `requirements.txt` with `requests` pinned (use versions compatible with Python 3.8+).
 - Add a small `tests/` directory with mocked network tests for `fetch_json_page` and `_image_head_info`.
-- Convert prints to `logging` only if adding a small migration (change README noting new usage).
+- Prints have been converted to `logging`. Use `--log-level` to control verbosity; update tests to capture logs when asserting on messages.
 
 ## CI / GitHub Actions ✅
 - A simple GitHub Actions workflow (`.github/workflows/python-tests.yml`) runs `pytest` on pushes and pull requests to `main`/`master` using Python 3.8-3.10.

@@ -51,11 +51,12 @@ Common options:
 - `--no-download-images` : Do not download images
 - `--no-save-json` : Do not save item JSON files
 - `--no-skip-existing` : Always overwrite / re-download existing files
+- `--log-level` : Logging level (DEBUG, INFO, WARNING, ERROR) (default: INFO)
 
 Example: download only metadata (no images) with faster pages
 
 ```bash
-python LOC_Scraper.py --base-url "https://www.loc.gov/collections/bain/" --no-download-images --polite-delay 1.0 --count 50
+python LOC_Scraper.py --base-url "https://www.loc.gov/collections/bain/" --no-download-images --polite-delay 5.0 --count 50
 ```
 
 ---
@@ -78,6 +79,7 @@ Files are skipped when unchanged (size, last-modified, or content hash checks ar
 - Use `--polite-delay` to avoid overloading the LoC servers (the default is 5s).
 - The tool preserves existing query parameters on `--base-url` and merges required parameters (fo=json, c, sp).
 - The built-in image detection is heuristic; if images are nested under uncommon keys you may need to adjust the code.
+- Output now uses Python's `logging`; set `--log-level` (default `INFO`) to control verbosity when running the tool.
 
 ---
 
