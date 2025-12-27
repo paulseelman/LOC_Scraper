@@ -58,7 +58,7 @@ Purpose: Help an AI coding agent be productive quickly by summarizing the projec
 - Prints have been converted to `logging`. Use `--log-level` to control verbosity; update tests to capture logs when asserting on messages.
 
 ## CI / GitHub Actions ✅
-- A simple GitHub Actions workflow (`.github/workflows/python-tests.yml`) runs `pytest` on pushes and pull requests to `main`/`master` using Python 3.8-3.10.
+- A simple GitHub Actions workflow (`.github/workflows/python-tests.yml`) runs `pytest` on pushes and pull requests to `main`/`master` using Python 3.11-3.12.
 - The job installs `requirements.txt` if present, otherwise falls back to installing `requests`, `pytest`, and `responses`.
 
 ---
