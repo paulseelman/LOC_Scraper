@@ -48,6 +48,7 @@ Purpose: Help an AI coding agent be productive quickly by summarizing the projec
 ## Safe modification notes / gotchas ⚠️
 - Be careful when changing default delays, counts, or retry semantics — these control load on LoC servers.
 - The image detection is heuristic — if you add image extraction changes, include test vectors for nested/unknown keys.
+- When encountering LoC tile service image URLs like `.../service/...r.jpg` the scraper will also construct a corresponding master TIFF URL by replacing `/service/` with `/master/` and `r.jpg` -> `u.tif` to fetch higher-resolution master images.
 - Preserving query params during URL build is important; use `build_url_with_params()` where possible.
 - Changing output structure: many downstream consumers may rely on `output/<item-id>/item.json` and the naming heuristics — document any breaking changes clearly.
 
