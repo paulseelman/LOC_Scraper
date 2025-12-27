@@ -367,8 +367,6 @@ def paginate_and_iterate_child_loc(
                     print(f"Warning: error saving item {total_processed + 1}: {e}")
 
                 total_processed += 1
-                if polite_delay_s > 0:
-                    time.sleep(polite_delay_s)
 
             print(f"Processed sp={sp}: {len(items)} items (total {total_processed})")
 
@@ -378,8 +376,8 @@ def paginate_and_iterate_child_loc(
 
             sp += 1
 
-            # if polite_delay_s > 0:
-            #     time.sleep(polite_delay_s)
+            if polite_delay_s > 0:
+                time.sleep(polite_delay_s)
 
 
 def main():
