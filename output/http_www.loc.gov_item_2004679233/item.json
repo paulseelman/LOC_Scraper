@@ -1,0 +1,140 @@
+{
+  "access_restricted": false,
+  "aka": [
+    "http://www.loc.gov/pictures/collection/ggbain/item/2004679233/",
+    "http://www.loc.gov/item/2004679233/",
+    "http://www.loc.gov/pictures/item/2004679233/",
+    "https://hdl.loc.gov/loc.pnp/cph.3b07489",
+    "http://www.loc.gov/resource/cph.3b07489/",
+    "http://lccn.loc.gov/2004679233"
+  ],
+  "campaigns": [],
+  "description": [
+    "1 photographic print. | Portrait, head and shoulders, facing right."
+  ],
+  "digitized": true,
+  "extract_timestamp": "2021-09-01T22:07:54.897Z",
+  "group": [
+    "ggbain",
+    "catalog-split-04",
+    "catalog",
+    "bain",
+    "main-catalog-split-04",
+    "main-catalog"
+  ],
+  "hassegments": false,
+  "id": "http://www.loc.gov/item/2004679233/",
+  "image_url": [
+    "https://tile.loc.gov/storage-services/service/pnp/cph/3b00000/3b07000/3b07400/3b07489_150px.jpg#h=150&w=96",
+    "https://tile.loc.gov/storage-services/service/pnp/cph/3b00000/3b07000/3b07400/3b07489t.gif#h=150&w=96",
+    "https://tile.loc.gov/storage-services/service/pnp/cph/3b00000/3b07000/3b07400/3b07489r.jpg#h=640&w=408"
+  ],
+  "index": 1,
+  "item": {
+    "call_number": "BIOG FILE  - Griffin, Walter Burley, 1876-1937 [item] [P&P]",
+    "control_number": "2004679233",
+    "created": "2016-04-21T03:25:15Z",
+    "created_published": "[no date recorded on caption card]",
+    "created_published_date": "[no date recorded on caption card]",
+    "date": "[no date recorded on caption card]",
+    "digital_id": [
+      "cph 3b07489 //hdl.loc.gov/loc.pnp/cph.3b07489"
+    ],
+    "display_offsite": true,
+    "format": [
+      "still image"
+    ],
+    "id": "2004679233",
+    "language": [
+      "eng"
+    ],
+    "link": "//www.loc.gov/pictures/item/2004679233/",
+    "marc": "//www.loc.gov/pictures/item/2004679233/marc/",
+    "medium": [
+      "1 photographic print."
+    ],
+    "medium_brief": "1 photographic print.",
+    "mediums": [
+      "1 photographic print."
+    ],
+    "modified": "2016-04-21T03:25:15Z",
+    "notes": [
+      "Title and other information transcribed from unverified, old caption card data and item.",
+      "Architect.",
+      "George Grantham Bain Collection (Library of Congress).",
+      "Caption card tracings: BI; Shelf."
+    ],
+    "other_control_numbers": [
+      "13728456"
+    ],
+    "repository": "Library of Congress Prints and Photographs Division Washington, D.C. 20540 USA",
+    "reproduction_number": "LC-USZ62-59749 (b&w film copy neg.)",
+    "resource_links": [
+      "//hdl.loc.gov/loc.pnp/cph.3b07489"
+    ],
+    "rights_advisory": "No known restrictions on publication.",
+    "rights_information": "No known restrictions on publication.",
+    "service_low": "https://tile.loc.gov/storage-services/service/pnp/cph/3b00000/3b07000/3b07400/3b07489_150px.jpg",
+    "service_medium": "https://tile.loc.gov/storage-services/service/pnp/cph/3b00000/3b07000/3b07400/3b07489r.jpg",
+    "source_created": "2004-09-23T00:00:00Z",
+    "source_modified": "2004-09-23T12:00:31Z",
+    "summary": "Portrait, head and shoulders, facing right.",
+    "thumb_gallery": "https://tile.loc.gov/storage-services/service/pnp/cph/3b00000/3b07000/3b07400/3b07489_150px.jpg",
+    "title": "Walter Burley Griffin, 1876-1937"
+  },
+  "language": [
+    "english"
+  ],
+  "mime_type": [
+    "image/gif",
+    "image/jpg",
+    "image/tif"
+  ],
+  "number": [
+    "2004679233",
+    "http://www.loc.gov/item/13728456",
+    "2004-09-23t12:00:31"
+  ],
+  "number_former_id": [
+    "http://www.loc.gov/item/13728456"
+  ],
+  "number_lccn": [
+    "2004679233"
+  ],
+  "number_source_modified": [
+    "2004-09-23t12:00:31"
+  ],
+  "online_format": [
+    "image"
+  ],
+  "original_format": [
+    "photo, print, drawing"
+  ],
+  "partof": [
+    "catalog",
+    "bain collection",
+    "prints & photographs online catalog (library of congress)",
+    "prints and photographs division"
+  ],
+  "related": {
+    "neighbors": "//www.loc.gov/pictures/related/?&co=ggbain&pk=2004679233&st=gallery&sb=call_number#focus"
+  },
+  "reproductions": "<p>If an image is displaying, you can download it yourself. (Some images \ndisplay only as thumbnails outside the Library of Congress because of rights \nconsiderations, but you have access to larger size images on site.)\n</p>\n\n<p>  \nAlternatively, you can purchase copies of various types through Library \nof Congress Duplication Services</a>.\n</p>\n\n<p> \n<ol>\n<p>\n<li><strong>If a digital image is displaying:</strong> The qualities of the digital image \npartially depend on whether it was made from the original or an \nintermediate such as a copy negative or transparency. If the Reproduction \nNumber field above includes a reproduction number that starts with \nLC-DIG..., then there is a digital image that was made directly \nfrom the original and is of sufficient resolution for most publication\n purposes.\n</li> \n</p>\n\n<li><strong>If there is information listed in the Reproduction Number field above:</strong> \nYou can use the reproduction number to purchase a copy from Duplication \nServices.  It will be made from the source listed in the parentheses after\n the number.  \n<p> \nIf only black-and-white (&quot;b&w&quot;) sources are listed and you \n desire a copy showing color or tint (assuming the original has any), \n you can generally purchase a quality copy of the original in color by \n citing the Call Number listed above and including the catalog record \n (&quot;About This Item&quot;) with your request.\n </p>\n</li>\n\n<li><strong>If there is no information listed in the Reproduction Number field \nabove:</strong> You can generally purchase a quality copy through \nDuplication Services. Cite the Call Number listed above and include the catalog record (&quot;About This Item&quot;) with \n your request.\n</li>\n</ol>\n</p>\n\n<p> \nPrice lists, contact information, and order forms are available on the\n <a href=\"//lcweb.loc.gov/preserv/pds/\">Duplication Services Web site</a>.  \n</p>\n\n\n\n",
+  "resources": [
+    {
+      "caption": "b&w film copy neg.",
+      "files": 1,
+      "image": "https://tile.loc.gov/storage-services/service/pnp/cph/3b00000/3b07000/3b07400/3b07489_150px.jpg",
+      "url": "https://www.loc.gov/resource/cph.3b07489/"
+    }
+  ],
+  "shelf_id": "BIOG FILE  - Griffin, Walter Burley, 1876-1937 [item] [P&P]",
+  "site": [
+    "pictures",
+    "catalog"
+  ],
+  "timestamp": "2022-04-23T07:54:41.728Z",
+  "title": "Walter Burley Griffin, 1876-1937",
+  "unrestricted": true,
+  "url": "https://www.loc.gov/item/2004679233/"
+}

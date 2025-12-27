@@ -1,0 +1,140 @@
+{
+  "access_restricted": false,
+  "aka": [
+    "http://www.loc.gov/pictures/collection/ggbain/item/2003669919/",
+    "http://www.loc.gov/item/2003669919/",
+    "http://www.loc.gov/pictures/item/2003669919/",
+    "https://hdl.loc.gov/loc.pnp/cph.3b20615",
+    "http://www.loc.gov/resource/cph.3b20615/",
+    "http://lccn.loc.gov/2003669919"
+  ],
+  "campaigns": [],
+  "description": [
+    "1 photographic print. | 3/4 lgth., standing, facing slightly left. Economist."
+  ],
+  "digitized": true,
+  "extract_timestamp": "2021-09-01T22:07:54.098Z",
+  "group": [
+    "ggbain",
+    "catalog-split-13",
+    "catalog",
+    "bain",
+    "main-catalog-split-13",
+    "main-catalog"
+  ],
+  "hassegments": false,
+  "id": "http://www.loc.gov/item/2003669919/",
+  "image_url": [
+    "https://tile.loc.gov/storage-services/service/pnp/cph/3b20000/3b20000/3b20600/3b20615_150px.jpg#h=116&w=150",
+    "https://tile.loc.gov/storage-services/service/pnp/cph/3b20000/3b20000/3b20600/3b20615t.gif#h=116&w=150",
+    "https://tile.loc.gov/storage-services/service/pnp/cph/3b20000/3b20000/3b20600/3b20615r.jpg#h=493&w=640"
+  ],
+  "index": 3,
+  "item": {
+    "call_number": "BIOG FILE - Andrews, John Bertram, 1904-1943 [item] [P&P]",
+    "control_number": "2003669919",
+    "created": "2016-04-21T10:25:31Z",
+    "created_published": "[no date recorded on caption card]",
+    "created_published_date": "[no date recorded on caption card]",
+    "date": "[no date recorded on caption card]",
+    "digital_id": [
+      "cph 3b20615 //hdl.loc.gov/loc.pnp/cph.3b20615"
+    ],
+    "display_offsite": true,
+    "format": [
+      "still image"
+    ],
+    "id": "2003669919",
+    "language": [
+      "eng"
+    ],
+    "link": "//www.loc.gov/pictures/item/2003669919/",
+    "marc": "//www.loc.gov/pictures/item/2003669919/marc/",
+    "medium": [
+      "1 photographic print."
+    ],
+    "medium_brief": "1 photographic print.",
+    "mediums": [
+      "1 photographic print."
+    ],
+    "modified": "2016-04-21T10:25:31Z",
+    "notes": [
+      "Photo by Bain News Service, N.Y.C.",
+      "Title and other information transcribed from unverified, old caption card and item.",
+      "George Grantham Bain Collection (Library of Congress).",
+      "Caption card tracings: Photog. I.; BI; Shelf. Sources checked: ONC; Websters."
+    ],
+    "other_control_numbers": [
+      "13194809"
+    ],
+    "repository": "Library of Congress Prints and Photographs Division Washington, D.C. 20540 USA",
+    "reproduction_number": "LC-USZ62-73284 (b&w film copy neg.)",
+    "resource_links": [
+      "//hdl.loc.gov/loc.pnp/cph.3b20615"
+    ],
+    "rights_advisory": "No known restrictions on publication.",
+    "rights_information": "No known restrictions on publication.",
+    "service_low": "https://tile.loc.gov/storage-services/service/pnp/cph/3b20000/3b20000/3b20600/3b20615_150px.jpg",
+    "service_medium": "https://tile.loc.gov/storage-services/service/pnp/cph/3b20000/3b20000/3b20600/3b20615r.jpg",
+    "source_created": "2003-05-12T00:00:00Z",
+    "source_modified": "2005-02-08T12:16:05Z",
+    "summary": "3/4 lgth., standing, facing slightly left. Economist.",
+    "thumb_gallery": "https://tile.loc.gov/storage-services/service/pnp/cph/3b20000/3b20000/3b20600/3b20615_150px.jpg",
+    "title": "John Bertram Andrews, 1904-1943"
+  },
+  "language": [
+    "english"
+  ],
+  "mime_type": [
+    "image/gif",
+    "image/jpg",
+    "image/tif"
+  ],
+  "number": [
+    "http://www.loc.gov/item/13194809",
+    "2005-02-08t12:16:05",
+    "2003669919"
+  ],
+  "number_former_id": [
+    "http://www.loc.gov/item/13194809"
+  ],
+  "number_lccn": [
+    "2003669919"
+  ],
+  "number_source_modified": [
+    "2005-02-08t12:16:05"
+  ],
+  "online_format": [
+    "image"
+  ],
+  "original_format": [
+    "photo, print, drawing"
+  ],
+  "partof": [
+    "catalog",
+    "bain collection",
+    "prints & photographs online catalog (library of congress)",
+    "prints and photographs division"
+  ],
+  "related": {
+    "neighbors": "//www.loc.gov/pictures/related/?&co=ggbain&pk=2003669919&st=gallery&sb=call_number#focus"
+  },
+  "reproductions": "<p>If an image is displaying, you can download it yourself. (Some images \ndisplay only as thumbnails outside the Library of Congress because of rights \nconsiderations, but you have access to larger size images on site.)\n</p>\n\n<p>  \nAlternatively, you can purchase copies of various types through Library \nof Congress Duplication Services</a>.\n</p>\n\n<p> \n<ol>\n<p>\n<li><strong>If a digital image is displaying:</strong> The qualities of the digital image \npartially depend on whether it was made from the original or an \nintermediate such as a copy negative or transparency. If the Reproduction \nNumber field above includes a reproduction number that starts with \nLC-DIG..., then there is a digital image that was made directly \nfrom the original and is of sufficient resolution for most publication\n purposes.\n</li> \n</p>\n\n<li><strong>If there is information listed in the Reproduction Number field above:</strong> \nYou can use the reproduction number to purchase a copy from Duplication \nServices.  It will be made from the source listed in the parentheses after\n the number.  \n<p> \nIf only black-and-white (&quot;b&w&quot;) sources are listed and you \n desire a copy showing color or tint (assuming the original has any), \n you can generally purchase a quality copy of the original in color by \n citing the Call Number listed above and including the catalog record \n (&quot;About This Item&quot;) with your request.\n </p>\n</li>\n\n<li><strong>If there is no information listed in the Reproduction Number field \nabove:</strong> You can generally purchase a quality copy through \nDuplication Services. Cite the Call Number listed above and include the catalog record (&quot;About This Item&quot;) with \n your request.\n</li>\n</ol>\n</p>\n\n<p> \nPrice lists, contact information, and order forms are available on the\n <a href=\"//lcweb.loc.gov/preserv/pds/\">Duplication Services Web site</a>.  \n</p>\n\n\n\n",
+  "resources": [
+    {
+      "caption": "b&w film copy neg.",
+      "files": 1,
+      "image": "https://tile.loc.gov/storage-services/service/pnp/cph/3b20000/3b20000/3b20600/3b20615_150px.jpg",
+      "url": "https://www.loc.gov/resource/cph.3b20615/"
+    }
+  ],
+  "shelf_id": "BIOG FILE - Andrews, John Bertram, 1904-1943 [item] [P&P]",
+  "site": [
+    "pictures",
+    "catalog"
+  ],
+  "timestamp": "2022-04-23T07:53:37.842Z",
+  "title": "John Bertram Andrews, 1904-1943",
+  "unrestricted": true,
+  "url": "https://www.loc.gov/item/2003669919/"
+}
