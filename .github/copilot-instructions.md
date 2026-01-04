@@ -40,6 +40,8 @@ Purpose: Help an AI coding agent be productive quickly by summarizing the projec
   1. `python -m pip install -r requirements.txt`
   2. `python -m pytest`
 
+- Sample JSON fixtures: `sample_item.json` and `sample_page.json` are included at the repository root — use these as test fixtures or examples when constructing unit/integration tests.
+
 - When adding more tests, mock external HTTP calls:
   - Prefer `responses` or `requests-mock` to simulate LoC endpoints and image servers.
   - Unit-test helpers: `_find_image_urls`, `_sanitize_name`, `_compute_file_hash`, and HEAD fallback in `_image_head_info`.

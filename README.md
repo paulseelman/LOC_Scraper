@@ -72,6 +72,29 @@ Inside each item folder:
 
 Files are skipped when unchanged (size, last-modified, or content hash checks are used) unless `--no-skip-existing` is set.
 
+## Sample JSON files (for development & testing)
+
+This repository includes two sample JSON files at the project root to make it easy to write tests or experiment manually:
+
+- `sample_item.json` — a representative single item JSON (useful for unit-testing `_find_image_urls`, `_sanitize_name`, and `_save_item_and_images`).
+- `sample_page.json` — a small example of a LoC collection page (useful for exercising `paginate_and_iterate_child_loc`).
+
+Quick examples:
+
+- Inspect discovered images from `sample_item.json`:
+
+```bash
+python - <<'PY'
+import json
+from LOC_Scraper import _find_image_urls
+print(_find_image_urls(json.load(open('sample_item.json'))))
+PY
+```
+
+- Use `sample_page.json` in tests by loading it and passing its `results` to your test helpers.
+
+Include these files when adding or updating unit tests so other contributors and AI agents can run examples offline.
+
 ---
 
 ## Notes & Tips ⚠️
