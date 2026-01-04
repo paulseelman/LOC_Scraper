@@ -12,6 +12,8 @@ from email.utils import parsedate_to_datetime
 
 import requests
 import logging
+import subprocess
+import sys
 
 logger = logging.getLogger(__name__)
 
@@ -346,18 +348,32 @@ def paginate_and_iterate_child_loc(
     """
     sp = start_sp
     total_processed = 0
+    recheck_needed = False
 
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     with requests.Session() as session:
         while True:
-            data = fetch_json_page(
-                session=session,
-                base_url=base_url,
-                page_sp=sp,
-                count_c=count_c,
-                extra_params=extra_params,
-            )
+            try:
+                data = fetch_json_page(
+                    session=session,
+                    base_url=base_url,
+                    page_sp=sp,
+                    count_c=count_c,
+                    extra_params=extra_params,
+                )
+            except RuntimeError as e:
+                # If the fetch failed due to exhausting retries while attempting to fetch the next
+                # page (e.g., "Failed to fetch/parse JSON after 4 retries ..."), record that we
+                # should perform a self-check run later and stop the pagination loop so we can
+                # finish cleanly.
+                msg = str(e)
+                if "Failed to fetch/parse JSON after" in msg:
+                    logger.warning(f"Fetch failed for sp={sp}: {e}. Scheduling a self-check run after completion.")
+                    recheck_needed = True
+                    break
+                # otherwise, re-raise unexpected runtime errors
+                raise
 
             items = get_child_list(data, child_key)
 
@@ -394,11 +410,14 @@ def paginate_and_iterate_child_loc(
             if polite_delay_s > 0:
                 time.sleep(polite_delay_s)
 
+    # Return whether a self-check run should be scheduled by the caller
+    return recheck_needed
+
 
 def main():
     parser = argparse.ArgumentParser(description="Iterate LoC collection, save item JSON and images.")
-    parser.add_argument("--base-url", default="https://www.loc.gov/collections/bain/", help="Base LoC collection URL")
-    parser.add_argument("--output-dir", default="output", help="Directory to save items and images")
+    parser.add_argument("--base-url", default="https://www.loc.gov/collections/brady-handy/", help="Base LoC collection URL")
+    parser.add_argument("--output-dir", default="brady-handy", help="Directory to save items and images")
     parser.add_argument("--count", type=int, default=25, help="Items per page (c)")
     parser.add_argument("--start", type=int, default=1, help="Starting page (sp)")
     parser.add_argument("--polite-delay", type=float, default=5.0, help="Delay between items (seconds)")
@@ -406,12 +425,14 @@ def main():
     parser.add_argument("--no-save-json", action="store_true", help="Do not save item JSON files")
     parser.add_argument("--no-skip-existing", action="store_true", help="Do not skip existing JSON/images; always re-download/overwrite")
     parser.add_argument("--log-level", default="INFO", choices=["DEBUG","INFO","WARNING","ERROR"], help="Logging level (default: INFO)")
+    # Internal flag used when the script re-invokes itself for a one-time self-check
+    parser.add_argument("--self-check-run", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args()
 
     # Configure logging according to CLI flag
     logging.basicConfig(level=getattr(logging, args.log_level), format="%(levelname)s: %(message)s")
 
-    paginate_and_iterate_child_loc(
+    recheck_needed = paginate_and_iterate_child_loc(
         base_url=args.base_url,
         child_key="results",
         count_c=args.count,
@@ -424,6 +445,18 @@ def main():
         download_images=not args.no_download_images,
         skip_existing=not args.no_skip_existing,
     )
+
+    # If the pagination loop indicated that the next page fetch failed due to exhausting
+    # retries, and this is NOT already a self-check run, spawn a one-time child process
+    # to re-run the script for verification. Pass `--self-check-run` so the child won't
+    # attempt to spawn again and create a loop.
+    if recheck_needed and not args.self_check_run:
+        try:
+            cmd = [sys.executable, os.path.abspath(__file__)] + sys.argv[1:] + ["--self-check-run"]
+            subprocess.Popen(cmd)
+            logger.info(f"Spawned self-check subprocess: {cmd}")
+        except Exception as e:
+            logger.warning(f"Failed to spawn self-check subprocess: {e}")
 
 
 if __name__ == "__main__":
