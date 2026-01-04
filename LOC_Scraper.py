@@ -416,8 +416,10 @@ def paginate_and_iterate_child_loc(
 
 def main():
     parser = argparse.ArgumentParser(description="Iterate LoC collection, save item JSON and images.")
-    parser.add_argument("--base-url", default="https://www.loc.gov/collections/brady-handy/", help="Base LoC collection URL")
-    parser.add_argument("--output-dir", default="brady-handy", help="Directory to save items and images")
+    # Allow deriving base URL and output directory from a short collection name
+    parser.add_argument("--collection", help="Collection short name (e.g. 'brady-handy' or 'bain'). When provided, base URL and output dir are derived from it unless explicitly set.")
+    parser.add_argument("--base-url", default=None, help="Base LoC collection URL; if omitted and --collection is provided it will be constructed from the collection name")
+    parser.add_argument("--output-dir", default=None, help="Directory to save items and images; if omitted and --collection is provided it will use the collection name")
     parser.add_argument("--count", type=int, default=25, help="Items per page (c)")
     parser.add_argument("--start", type=int, default=1, help="Starting page (sp)")
     parser.add_argument("--polite-delay", type=float, default=5.0, help="Delay between items (seconds)")
@@ -432,15 +434,20 @@ def main():
     # Configure logging according to CLI flag
     logging.basicConfig(level=getattr(logging, args.log_level), format="%(levelname)s: %(message)s")
 
+    # Determine base URL and output directory, with sensible defaults.
+    default_base_url = "https://www.loc.gov/collections/brady-handy/"
+    base_url = args.base_url if args.base_url else (f"https://www.loc.gov/collections/{args.collection}/" if args.collection else default_base_url)
+    output_dir = args.output_dir if args.output_dir else (args.collection if args.collection else "brady-handy")
+
     recheck_needed = paginate_and_iterate_child_loc(
-        base_url=args.base_url,
+        base_url=base_url,
         child_key="results",
         count_c=args.count,
         start_sp=args.start,
         extra_params=None,
         stop_on_short_page=True,
         polite_delay_s=args.polite_delay,
-        output_dir=args.output_dir,
+        output_dir=output_dir,
         save_json=not args.no_save_json,
         download_images=not args.no_download_images,
         skip_existing=not args.no_skip_existing,
