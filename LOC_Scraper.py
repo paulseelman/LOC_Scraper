@@ -483,9 +483,12 @@ def main():
     logging.basicConfig(level=getattr(logging, args.log_level), format="%(levelname)s: %(message)s")
 
     # Determine base URL and output directory, with sensible defaults.
-    default_base_url = "https://www.loc.gov/collections/brady-handy/"
-    base_url = args.base_url if args.base_url else (f"https://www.loc.gov/collections/{args.collection}/" if args.collection else default_base_url)
-    output_dir = args.output_dir if args.output_dir else (args.collection if args.collection else "brady-handy")
+    default_collection = "brady-handy"
+    collection = args.collection if args.collection else default_collection
+    default_base_url = f"https://www.loc.gov/collections/{collection}/"
+    base_url = args.base_url if args.base_url else default_base_url
+    # When `--collection` is used (or the default), place collection folders under the project's `output/` root
+    output_dir = args.output_dir if args.output_dir else os.path.join("output", collection)
 
     recheck_needed = paginate_and_iterate_child_loc(
         base_url=base_url,
