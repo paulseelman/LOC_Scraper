@@ -47,9 +47,13 @@ Run the script directly with Python:
 python LOC_Scraper.py --base-url "https://www.loc.gov/collections/bain/" --output-dir ./output
 ```
 
-Quick example using the new `--collection` convenience option:
+Quick example using the new `--collection` convenience option (the default):
 
 ```bash
+# Running with no args will use the default collection 'brady-handy'
+python LOC_Scraper.py
+
+# Or explicitly
 python LOC_Scraper.py --collection brady-handy
 ```
 
