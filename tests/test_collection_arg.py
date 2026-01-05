@@ -18,7 +18,7 @@ def test_main_derives_base_and_output_from_collection(monkeypatch, tmp_path):
     LOC_Scraper.main()
 
     assert captured['base_url'] == 'https://www.loc.gov/collections/brady-handy/'
-    assert captured['output_dir'] == 'brady-handy'
+    assert captured['output_dir'] == os.path.join('output', 'brady-handy')
 
 
 def test_explicit_flags_take_precedence(monkeypatch):

@@ -91,7 +91,7 @@ python LOC_Scraper.py --base-url "https://www.loc.gov/collections/bain/" --no-do
 
 ## Output structure
 
-By default the scraper writes to `./<collection>/` (default collection: `brady-handy`). For each discovered item it creates a folder named after the item's `id`, `url`, or `title` (sanitized) or `item_<n>` as fallback.
+By default the scraper writes to `./output/<collection>/` (default collection: `brady-handy`). For each discovered item it creates a folder named after the item's `id`, `url`, or `title` (sanitized) or `item_<n>` as fallback.
 
 Inside each item folder:
 

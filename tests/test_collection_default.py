@@ -18,4 +18,4 @@ def test_default_uses_brady_handy(monkeypatch, tmp_path):
     LOC_Scraper.main()
 
     assert captured['base_url'] == 'https://www.loc.gov/collections/brady-handy/'
-    assert captured['output_dir'] == 'brady-handy'
+    assert captured['output_dir'] == os.path.join('output', 'brady-handy')
