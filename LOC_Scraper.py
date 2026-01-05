@@ -17,6 +17,27 @@ import sys
 
 logger = logging.getLogger(__name__)
 
+# Session-level image-set statistics (reset at the start of a run)
+_session_image_sets = 0
+_session_image_bytes = 0
+
+def _reset_image_session_stats() -> None:
+    """Reset session counters for image sets/bytes."""
+    global _session_image_sets, _session_image_bytes
+    _session_image_sets = 0
+    _session_image_bytes = 0
+
+
+def _format_bytes(sz: int) -> str:
+    """Human-friendly size formatting (bytes -> KB/MB)"""
+    if sz < 1024:
+        return f"{sz} B"
+    for unit in ("KiB", "MiB", "GiB"):
+        sz /= 1024.0
+        if sz < 1024.0:
+            return f"{sz:.2f} {unit}"
+    return f"{sz:.2f} TiB"
+
 
 def build_url_with_params(base_url: str, params: Dict[str, Any]) -> str:
     """
@@ -171,6 +192,10 @@ def _compute_file_hash(path: Path) -> str:
 
 def _save_item_and_images(session: requests.Session, item: Any, out_dir: str, idx: int, save_json: bool = True, download_images: bool = True, skip_existing: bool = True) -> None:
     base = Path(out_dir)
+    # Track bytes downloaded for this item's image set; this is used to update
+    # the session-level cumulative counters and to emit a single info line per set.
+    set_bytes = 0
+    set_saved_files = 0
     # pick a folder name: prefer id or url or title; fallback to numeric index
     folder_key = None
     if isinstance(item, dict):
@@ -269,10 +294,17 @@ def _save_item_and_images(session: requests.Session, item: Any, out_dir: str, id
                                         logger.info(f"Skipping image (exists, identical content): {dst}")
                                         skipped = True
                                     else:
-                                        # move into place (overwrite)
+                                        # capture bytes written, move into place (overwrite)
+                                        try:
+                                            bytes_written = tmp_path.stat().st_size
+                                        except Exception:
+                                            bytes_written = None
                                         tmp_path.replace(dst)
                                         logger.info(f"Replaced image (content changed): {dst}")
                                         saved += 1
+                                        set_saved_files += 1
+                                        if bytes_written:
+                                            set_bytes += bytes_written
                                 finally:
                                     # ensure no leftover if we replaced
                                     if 'tmp_path' in locals() and tmp_path.exists():
@@ -303,9 +335,16 @@ def _save_item_and_images(session: requests.Session, item: Any, out_dir: str, id
                         while dst_final.exists() and not skip_existing:
                             dst_final = item_dir / f"{dst.stem}_{i}{dst.suffix}"
                             i += 1
+                        try:
+                            bytes_written = tmp_path.stat().st_size
+                        except Exception:
+                            bytes_written = None
                         tmp_path.replace(dst_final)
                         logger.info(f"Saved image: {dst_final}")
                         saved += 1
+                        set_saved_files += 1
+                        if bytes_written:
+                            set_bytes += bytes_written
                     finally:
                         # cleanup if something went wrong and tmpf still exists
                         if 'tmp_path' in locals() and tmp_path.exists() and not tmp_path.samefile(dst if dst.exists() else tmp_path):
@@ -316,6 +355,15 @@ def _save_item_and_images(session: requests.Session, item: Any, out_dir: str, id
 
             except requests.RequestException as e:
                 logger.warning(f"Failed to download {url}: {e}")
+
+        # After processing this item's discovered URLs, if we downloaded any files
+        # count this as one image set and update session cumulative counters and log
+        # a concise info line for the user.
+        if set_saved_files > 0:
+            global _session_image_sets, _session_image_bytes
+            _session_image_sets += 1
+            _session_image_bytes += set_bytes
+            logger.info(f"Image sets: {_session_image_sets} | cumulative downloaded: {_format_bytes(_session_image_bytes)}")
 
 
 def paginate_and_iterate_child_loc(

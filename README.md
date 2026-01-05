@@ -130,6 +130,7 @@ Include these files when adding or updating unit tests so other contributors and
 - **Self-check on exhausted retries:** when a fetch for the *next* page fails after exhausting retries (default 4), the scraper will schedule a one-time self-check run: it finishes current work and spawns a background subprocess that re-invokes the script with a hidden `--self-check-run` flag. The child run will not spawn further self-checks, preventing recursion. This helps verify whether intermittent network issues prevented page retrieval.
 - **Collection short-name convenience:** you can now pass `--collection <name>` (e.g. `brady-handy`, `bain`, `abdul-hamid-ii`) and the `--base-url` and `--output-dir` will be derived from it when those flags are not explicitly provided. Example: `--collection brady-handy` results in base URL `https://www.loc.gov/collections/brady-handy/` and output directory `brady-handy`.
 - The built-in image detection is heuristic; if images are nested under uncommon keys you may need to adjust the code.
+- After each item's image set is saved (when at least one image was downloaded for that item), the scraper prints a concise info line showing the **cumulative number of image sets** downloaded and the **cumulative bytes** downloaded in the current run (human-friendly units).
 - Output now uses Python's `logging`; set `--log-level` (default `INFO`) to control verbosity when running the tool.
 
 ---
