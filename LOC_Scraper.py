@@ -465,7 +465,7 @@ def paginate_and_iterate_child_loc(
 def main():
     parser = argparse.ArgumentParser(description="Iterate LoC collection, save item JSON and images.")
     # Allow deriving base URL and output directory from a short collection name
-    parser.add_argument("--collection", default="brady-handy", help="Collection short name (e.g. 'brady-handy' or 'bain'). This is now the primary option and defaults to 'brady-handy' when omitted; --base-url and --output-dir are derived from it unless explicitly set.")
+    parser.add_argument("--collection", default="bain", help="Collection short name (e.g. 'bain' or 'brady-handy'). This is now the primary option and defaults to 'bain' when omitted; --base-url and --output-dir are derived from it unless explicitly set.")
     parser.add_argument("--base-url", default=None, help="Base LoC collection URL; if omitted and --collection is provided it will be constructed from the collection name")
     parser.add_argument("--output-dir", default=None, help="Directory to save items and images; if omitted and --collection is provided it will use the collection name")
     parser.add_argument("--count", type=int, default=25, help="Items per page (c)")
@@ -483,7 +483,7 @@ def main():
     logging.basicConfig(level=getattr(logging, args.log_level), format="%(levelname)s: %(message)s")
 
     # Determine base URL and output directory, with sensible defaults.
-    default_collection = "brady-handy"
+    default_collection = "bain"
     collection = args.collection if args.collection else default_collection
     default_base_url = f"https://www.loc.gov/collections/{collection}/"
     base_url = args.base_url if args.base_url else default_base_url
