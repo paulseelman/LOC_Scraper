@@ -46,7 +46,7 @@ Clone the repository or copy `LOC_Scraper.py` into your working directory. No bu
 Run the script directly with Python (the default behavior uses the `--collection` option):
 
 ```bash
-# Running with no args will use the default collection 'brady-handy'
+# Running with no args will use the default collection 'bain'
 python LOC_Scraper.py
 
 # Or explicitly (and tune page size / delay)
@@ -62,7 +62,7 @@ python LOC_Scraper.py --collection brady-handy --no-download-images --polite-del
 
 Common options:
 
-- `--collection` : Collection short name **(default: `brady-handy`)**. This is the primary option: when provided (or when omitted, since it defaults to `brady-handy`) it determines the collection to scrape. If `--base-url` or `--output-dir` are not provided, they will be derived from the collection name as follows:
+- `--collection` : Collection short name **(default: `bain`)**. This is the primary option: when provided (or when omitted, since it defaults to `bain`) it determines the collection to scrape. If `--base-url` or `--output-dir` are not provided, they will be derived from the collection name as follows:
   - base URL: `https://www.loc.gov/collections/<collection>/`
   - output directory: `<collection>`
   Explicit `--base-url` and `--output-dir` always override the derived values.
@@ -91,7 +91,7 @@ python LOC_Scraper.py --base-url "https://www.loc.gov/collections/bain/" --no-do
 
 ## Output structure
 
-By default the scraper writes to `./output/<collection>/` (default collection: `brady-handy`). For each discovered item it creates a folder named after the item's `id`, `url`, or `title` (sanitized) or `item_<n>` as fallback.
+By default the scraper writes to `./output/<collection>/` (default collection: `bain`). For each discovered item it creates a folder named after the item's `id`, `url`, or `title` (sanitized) or `item_<n>` as fallback.
 
 Inside each item folder:
 
@@ -130,7 +130,7 @@ Include these files when adding or updating unit tests so other contributors and
 - Use `--polite-delay` to avoid overloading the LoC servers (the default is 5s).
 - The tool preserves existing query parameters on `--base-url` and merges required parameters (fo=json, c, sp).
 - **Self-check on exhausted retries:** when a fetch for the *next* page fails after exhausting retries (default 4), the scraper will schedule a one-time self-check run: it finishes current work and spawns a background subprocess that re-invokes the script with a hidden `--self-check-run` flag. The child run will not spawn further self-checks, preventing recursion. This helps verify whether intermittent network issues prevented page retrieval.
-- **Collection short-name convenience:** you can now pass `--collection <name>` (e.g. `brady-handy`, `bain`, `abdul-hamid-ii`) and the `--base-url` and `--output-dir` will be derived from it when those flags are not explicitly provided. Example: `--collection brady-handy` results in base URL `https://www.loc.gov/collections/brady-handy/` and output directory `brady-handy`.
+- **Collection short-name convenience:** you can now pass `--collection <name>` (e.g. `bain`, `brady-handy`, `abdul-hamid-ii`) and the `--base-url` and `--output-dir` will be derived from it when those flags are not explicitly provided. Example: `--collection bain` results in base URL `https://www.loc.gov/collections/bain/` and output directory `bain`.
 - The built-in image detection is heuristic; if images are nested under uncommon keys you may need to adjust the code.
 - After each item's image set is saved (when at least one image was downloaded for that item), the scraper prints a concise info line showing the **cumulative number of image sets** downloaded and the **cumulative bytes** downloaded in the current run (human-friendly units).
 - Output now uses Python's `logging`; set `--log-level` (default `INFO`) to control verbosity when running the tool.
