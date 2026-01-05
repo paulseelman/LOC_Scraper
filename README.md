@@ -50,14 +50,14 @@ Run the script directly with Python (the default behavior uses the `--collection
 python LOC_Scraper.py
 
 # Or explicitly (and tune page size / delay)
-python LOC_Scraper.py --collection brady-handy --count 50 --polite-delay 5.0
+python LOC_Scraper.py --collection bain --count 50 --polite-delay 5.0
 ```
 
 Quick example using the `--collection` convenience option explicitly:
 
 ```bash
-# Use the 'brady-handy' collection and only download metadata (no images)
-python LOC_Scraper.py --collection brady-handy --no-download-images --polite-delay 5.0 --count 50
+# Use the 'bain' collection and only download metadata (no images)
+python LOC_Scraper.py --collection bain --no-download-images --polite-delay 5.0 --count 50
 ```
 
 Common options:
