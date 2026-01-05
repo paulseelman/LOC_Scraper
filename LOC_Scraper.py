@@ -417,7 +417,7 @@ def paginate_and_iterate_child_loc(
 def main():
     parser = argparse.ArgumentParser(description="Iterate LoC collection, save item JSON and images.")
     # Allow deriving base URL and output directory from a short collection name
-    parser.add_argument("--collection", help="Collection short name (e.g. 'brady-handy' or 'bain'). When provided, base URL and output dir are derived from it unless explicitly set.")
+    parser.add_argument("--collection", default="brady-handy", help="Collection short name (e.g. 'brady-handy' or 'bain'). This is now the primary option and defaults to 'brady-handy' when omitted; --base-url and --output-dir are derived from it unless explicitly set.")
     parser.add_argument("--base-url", default=None, help="Base LoC collection URL; if omitted and --collection is provided it will be constructed from the collection name")
     parser.add_argument("--output-dir", default=None, help="Directory to save items and images; if omitted and --collection is provided it will use the collection name")
     parser.add_argument("--count", type=int, default=25, help="Items per page (c)")
