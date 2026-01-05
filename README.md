@@ -12,6 +12,12 @@ A small, focused command-line tool to iterate Library of Congress (LoC) collecti
 - Skip unchanged files (to avoid re-downloading)
 - Configurable page size, start page, polite delay, and toggles to skip JSON or images
 
+## What's New (2026-01-04) ✨
+
+- **`--collection` convenience option**: pass a collection short-name (e.g. `brady-handy`, `bain`, `abdul-hamid-ii`) and the `--base-url` and `--output-dir` will be derived automatically when those flags are omitted (e.g., `--collection brady-handy` => base URL `https://www.loc.gov/collections/brady-handy/` and output dir `brady-handy`). (PR: https://github.com/paulseelman/LOC_Scraper/pull/6)
+
+- **Self-check re-run on exhausted page fetch retries**: if a fetch for the next page fails after exhausting retries (default 4), the scraper will schedule a one-time background self-check run — it finishes current work and spawns a subprocess that re-invokes the script with a hidden `--self-check-run` flag so the child won't re-spawn further. This helps detect and verify transient network issues.
+
 ---
 
 ## Requirements 🔧
@@ -39,6 +45,12 @@ Run the script directly with Python:
 
 ```bash
 python LOC_Scraper.py --base-url "https://www.loc.gov/collections/bain/" --output-dir ./output
+```
+
+Quick example using the new `--collection` convenience option:
+
+```bash
+python LOC_Scraper.py --collection brady-handy
 ```
 
 Common options:
