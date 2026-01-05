@@ -41,20 +41,21 @@ Clone the repository or copy `LOC_Scraper.py` into your working directory. No bu
 
 ## Usage — Quick Start 💡
 
-Run the script directly with Python:
-
-```bash
-python LOC_Scraper.py --base-url "https://www.loc.gov/collections/bain/" --output-dir ./output
-```
-
-Quick example using the new `--collection` convenience option (the default):
+Run the script directly with Python (the default behavior uses the `--collection` option):
 
 ```bash
 # Running with no args will use the default collection 'brady-handy'
 python LOC_Scraper.py
 
-# Or explicitly
-python LOC_Scraper.py --collection brady-handy
+# Or explicitly (and tune page size / delay)
+python LOC_Scraper.py --collection brady-handy --count 50 --polite-delay 5.0
+```
+
+Quick example using the `--collection` convenience option explicitly:
+
+```bash
+# Use the 'brady-handy' collection and only download metadata (no images)
+python LOC_Scraper.py --collection brady-handy --no-download-images --polite-delay 5.0 --count 50
 ```
 
 Common options:
@@ -88,7 +89,7 @@ python LOC_Scraper.py --base-url "https://www.loc.gov/collections/bain/" --no-do
 
 ## Output structure
 
-By default the scraper writes to `./output/`. For each discovered item it creates a folder named after the item's `id`, `url`, or `title` (sanitized) or `item_<n>` as fallback.
+By default the scraper writes to `./<collection>/` (default collection: `brady-handy`). For each discovered item it creates a folder named after the item's `id`, `url`, or `title` (sanitized) or `item_<n>` as fallback.
 
 Inside each item folder:
 
