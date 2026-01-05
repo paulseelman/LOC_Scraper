@@ -210,9 +210,41 @@ def _save_item_and_images(session: requests.Session, item: Any, out_dir: str, id
     item_dir = base / folder_name
     item_dir.mkdir(parents=True, exist_ok=True)
 
+    # Determine candidate JSON filename based on discovered image filenames.
+    # Prefer master TIFFs that use the 'u' suffix (e.g., 37158u.tif -> 37158.json).
+    json_filename = 'item.json'
+
+    # Find image URLs for naming, even if we won't download images here.
+    urls = _find_image_urls(item)
+    if not urls and isinstance(item, dict):
+        for k in ('image', 'images', 'online_media', 'online_media_urls'):
+            v = item.get(k)
+            if v:
+                urls.extend(_find_image_urls(v))
+
+    stem_candidate = None
+    # Prefer TIFF/u candidates by sorting so TIFFs are considered first
+    for url in sorted(urls, key=lambda u: (0 if u.lower().endswith(('.tif', '.tiff')) else 1)):
+        name = os.path.basename(urlparse(url).path)
+        m = re.match(r'^(?P<stem>.+?)(?P<suffix>[ur])\.(?P<ext>tif|tiff|jpe?g|jpg)$', name, flags=re.IGNORECASE)
+        if m:
+            stem = m.group('stem')
+            ext = m.group('ext').lower()
+            suffix = m.group('suffix').lower()
+            # If this is a master TIFF (u.tif), pick it immediately
+            if ext in ('tif', 'tiff') and suffix == 'u':
+                stem_candidate = stem
+                break
+            if stem_candidate is None:
+                # keep first reasonable candidate as a fallback
+                stem_candidate = stem
+
+    if stem_candidate:
+        json_filename = f"{_sanitize_name(stem_candidate)}.json"
+
     # save JSON copy (skip if identical when requested)
     if save_json:
-        existing_json_path = item_dir / 'item.json'
+        existing_json_path = item_dir / json_filename
         try:
             if existing_json_path.exists() and skip_existing:
                 try:
