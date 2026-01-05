@@ -50,6 +50,10 @@ Purpose: Help an AI coding agent be productive quickly by summarizing the projec
 ## Safe modification notes / gotchas ⚠️
 - Be careful when changing default delays, counts, or retry semantics — these control load on LoC servers.
 - The image detection is heuristic — if you add image extraction changes, include test vectors for nested/unknown keys.
+- New features (2026-01-04):
+  - **`--collection`**: now available as a convenience/default to derive `--base-url` and `--output-dir` from a short collection name (default: `brady-handy`). Prefer updating README and adding tests when altering default behavior. (PRs: #6, #8)
+  - **One-time self-check re-run**: when a fetch for the next page exhausts retries, the scraper schedules a one-time background self-check subprocess (internal `--self-check-run` flag) to verify whether a transient error prevented the fetch; do not spawn further re-checks from the child. Tests should simulate `fetch_json_page()` raising the runtime error pattern to validate behavior. (PR: #7)
+  - **Per-item image-set stats**: after each item where images were downloaded, the script emits an info line with the *cumulative* number of image sets and cumulative bytes downloaded for the current run (human-friendly units). Add tests that verify counters increment only when new files are written (skipped files should not increment counters) and that bytes reflect files saved. (PR: #11)
 - When encountering LoC tile service image URLs like `.../service/...r.jpg` the scraper will also construct a corresponding master TIFF URL by replacing `/service/` with `/master/` and `r.jpg` -> `u.tif` to fetch higher-resolution master images.
 - Preserving query params during URL build is important; use `build_url_with_params()` where possible.
 - Changing output structure: many downstream consumers may rely on `output/<item-id>/item.json` and the naming heuristics — document any breaking changes clearly.

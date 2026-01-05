@@ -16,7 +16,9 @@ A small, focused command-line tool to iterate Library of Congress (LoC) collecti
 
 - **`--collection` convenience option**: pass a collection short-name (e.g. `brady-handy`, `bain`, `abdul-hamid-ii`) and the `--base-url` and `--output-dir` will be derived automatically when those flags are omitted (e.g., `--collection brady-handy` => base URL `https://www.loc.gov/collections/brady-handy/` and output dir `brady-handy`). (PR: https://github.com/paulseelman/LOC_Scraper/pull/6)
 
-- **Self-check re-run on exhausted page fetch retries**: if a fetch for the next page fails after exhausting retries (default 4), the scraper will schedule a one-time background self-check run — it finishes current work and spawns a subprocess that re-invokes the script with a hidden `--self-check-run` flag so the child won't re-spawn further. This helps detect and verify transient network issues.
+- **Self-check re-run on exhausted page fetch retries**: if a fetch for the next page fails after exhausting retries (default 4), the scraper will schedule a one-time background self-check run — it finishes current work and spawns a subprocess that re-invokes the script with a hidden `--self-check-run` flag so the child won't re-spawn further. This helps detect and verify transient network issues. (PR: https://github.com/paulseelman/LOC_Scraper/pull/7)
+
+- **Per-item image-set stats and cumulative session reporting**: after each item where one or more images were downloaded, the scraper emits a concise info line showing the cumulative number of image sets downloaded and the cumulative bytes downloaded in the current run (human-friendly units). This helps monitor progress and bandwidth usage during long runs. (PR: https://github.com/paulseelman/LOC_Scraper/pull/11)
 
 ---
 
