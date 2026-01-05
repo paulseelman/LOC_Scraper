@@ -59,15 +59,24 @@ python LOC_Scraper.py --collection brady-handy
 
 Common options:
 
-- `--base-url` : Base LoC collection URL (default: `https://www.loc.gov/collections/bain/`)
-- `--output-dir` : Directory to save items and images (default: `output`)
+- `--collection` : Collection short name **(default: `brady-handy`)**. This is the primary option: when provided (or when omitted, since it defaults to `brady-handy`) it determines the collection to scrape. If `--base-url` or `--output-dir` are not provided, they will be derived from the collection name as follows:
+  - base URL: `https://www.loc.gov/collections/<collection>/`
+  - output directory: `<collection>`
+  Explicit `--base-url` and `--output-dir` always override the derived values.
+
+- `--base-url` : Base LoC collection URL. If omitted, and `--collection` is used (or the default), the script constructs the URL from the collection name as shown above.
+
+- `--output-dir` : Directory to save items and images. If omitted and `--collection` is set (or the default), the script will use the collection name as the output directory.
+
 - `--count` : Items per page (c) (default: 25)
 - `--start` : Starting page (sp) (default: 1)
-- `--polite-delay` : Delay between items in seconds (default: 5.0)
+- `--polite-delay` : Delay between pages (seconds) (default: 5.0)
 - `--no-download-images` : Do not download images
 - `--no-save-json` : Do not save item JSON files
 - `--no-skip-existing` : Always overwrite / re-download existing files
 - `--log-level` : Logging level (DEBUG, INFO, WARNING, ERROR) (default: INFO)
+
+Note: Internally, when the scraper fails to fetch the next page after exhausting retries, it schedules a one-time background self-check run. This spawns a subprocess that re-invokes the script with an internal (hidden) `--self-check-run` flag; the child run will not spawn further self-checks. You do not normally need to pass `--self-check-run` manually.
 
 Example: download only metadata (no images) with faster pages
 
