@@ -18,7 +18,7 @@ A small, focused command-line tool to iterate Library of Congress (LoC) collecti
 
 - **Self-check re-run on exhausted page fetch retries**: if a fetch for the next page fails after exhausting retries (default 4), the scraper will schedule a one-time background self-check run — it finishes current work and spawns a subprocess that re-invokes the script with a hidden `--self-check-run` flag so the child won't re-spawn further. This helps detect and verify transient network issues. (PR: https://github.com/paulseelman/LOC_Scraper/pull/7)
 
-- **Per-item image-set stats and cumulative session reporting**: after each item where one or more images were downloaded, the scraper emits a concise info line showing the cumulative number of image sets downloaded and the cumulative bytes downloaded in the current run (human-friendly units). This helps monitor progress and bandwidth usage during long runs. (PR: https://github.com/paulseelman/LOC_Scraper/pull/11)
+- **Per-item image-set stats and cumulative session reporting**: after each item where one or more images were downloaded, the scraper emits a concise info line showing the cumulative number of image sets downloaded and the cumulative bytes downloaded in the current run. This helps monitor progress and bandwidth usage during long runs. (PR: https://github.com/paulseelman/LOC_Scraper/pull/11)
 
 ---
 
@@ -132,7 +132,7 @@ Include these files when adding or updating unit tests so other contributors and
 - **Self-check on exhausted retries:** when a fetch for the *next* page fails after exhausting retries (default 4), the scraper will schedule a one-time self-check run: it finishes current work and spawns a background subprocess that re-invokes the script with a hidden `--self-check-run` flag. The child run will not spawn further self-checks, preventing recursion. This helps verify whether intermittent network issues prevented page retrieval.
 - **Collection short-name convenience:** you can now pass `--collection <name>` (e.g. `bain`, `brady-handy`) and the `--base-url` and `--output-dir` will be derived from it when those flags are not explicitly provided. Example: `--collection bain` results in base URL `https://www.loc.gov/collections/bain/` and output directory `bain`.
 - The built-in image detection is heuristic; if images are nested under uncommon keys you may need to adjust the code.
-- After each item's image set is saved (when at least one image was downloaded for that item), the scraper prints a concise info line showing the **cumulative number of image sets** downloaded and the **cumulative bytes** downloaded in the current run (human-friendly units).
+- After each item's image set is saved (when at least one image was downloaded for that item), the scraper prints a concise info line showing the **cumulative number of image sets** downloaded and the **cumulative bytes** downloaded in the current run.
 - Output now uses Python's `logging`; set `--log-level` (default `INFO`) to control verbosity when running the tool.
 
 ---
