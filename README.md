@@ -14,11 +14,15 @@ A small, focused command-line tool to iterate Library of Congress (LoC) collecti
 
 ## What's New (2026-01-11) ✨
 
+- **Added debug files to .gitignore**: `run_debug.py` and `tmp_debug/` are now ignored by git. (PR: https://github.com/paulseelman/LOC_Scraper/pull/19)
+
 - **Updated documentation to use `python3`**: All documentation now uses `python3` instead of `python` for consistency and to ensure users use Python 3 explicitly. (PR: https://github.com/paulseelman/LOC_Scraper/pull/17)
 
 - **Save item JSON using image stem when available**: When an item contains image filenames like `37158u.tif` or `37158r.jpg`, the item's JSON is now saved as `37158.json` instead of `item.json` (falls back to `item.json` when no usable image name is found). (PR: https://github.com/paulseelman/LOC_Scraper/pull/16)
 
 - **Changed default collection to 'bain'**: The scraper's default collection is now `bain` (was `brady-handy`). (PR: https://github.com/paulseelman/LOC_Scraper/pull/15)
+
+- **Added sample JSON fixtures**: `sample_item.json` and `sample_page.json` are now included in the repository as test fixtures and examples. (PR: https://github.com/paulseelman/LOC_Scraper/pull/14)
 
 ---
 
