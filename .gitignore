@@ -208,3 +208,7 @@ __marimo__/
 
 # Local settings
 output/
+
+# Debug files
+run_debug.py
+tmp_debug/
