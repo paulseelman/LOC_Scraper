@@ -30,7 +30,7 @@ A small, focused command-line tool to iterate Library of Congress (LoC) collecti
 Install the dependency with:
 
 ```bash
-python -m pip install requests
+python3 -m pip install requests
 ```
 
 ---
@@ -47,17 +47,17 @@ Run the script directly with Python (the default behavior uses the `--collection
 
 ```bash
 # Running with no args will use the default collection 'bain'
-python LOC_Scraper.py
+python3 LOC_Scraper.py
 
 # Or explicitly (and tune page size / delay)
-python LOC_Scraper.py --collection bain --count 50 --polite-delay 5.0
+python3 LOC_Scraper.py --collection bain --count 50 --polite-delay 5.0
 ```
 
 Quick example using the `--collection` convenience option explicitly:
 
 ```bash
 # Use the 'bain' collection and only download metadata (no images)
-python LOC_Scraper.py --collection bain --no-download-images --polite-delay 5.0 --count 50
+python3 LOC_Scraper.py --collection bain --no-download-images --polite-delay 5.0 --count 50
 ```
 
 Common options:
@@ -84,7 +84,7 @@ Note: Internally, when the scraper fails to fetch the next page after exhausting
 Example: download only metadata (no images) with faster pages
 
 ```bash
-python LOC_Scraper.py --base-url "https://www.loc.gov/collections/bain/" --no-download-images --polite-delay 5.0 --count 50
+python3 LOC_Scraper.py --base-url "https://www.loc.gov/collections/bain/" --no-download-images --polite-delay 5.0 --count 50
 ```
 
 ---

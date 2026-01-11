@@ -30,15 +30,15 @@ Purpose: Help an AI coding agent be productive quickly by summarizing the projec
 - URL handling preserves existing query params via `build_url_with_params()` — avoid stripping params when making changes.
 
 ## Typical developer workflows & helpful commands ⚙️
-- Install dependency: `python -m pip install requests`
-- Run quick scrape: `python LOC_Scraper.py --base-url "https://www.loc.gov/collections/bain/" --output-dir ./output`
+- Install dependency: `python3 -m pip install requests`
+- Run quick scrape: `python3 LOC_Scraper.py --base-url "https://www.loc.gov/collections/bain/" --output-dir ./output`
 - Force re-downloads for debugging: add `--no-skip-existing` and `--no-download-images` as needed.
 - Speed up/debug runs: lower `--polite-delay` and `--count` (but be considerate of LoC servers).
 
 ## Testing & changing network behavior (practical guidance) ✅
 - A minimal pytest-based test suite has been added in `tests/` covering `_find_image_urls`, `_sanitize_name`, `_compute_file_hash`, and `_image_head_info` (HEAD fallback). Run it with:
-  1. `python -m pip install -r requirements.txt`
-  2. `python -m pytest`
+  1. `python3 -m pip install -r requirements.txt`
+  2. `python3 -m pytest`
 
 - Sample JSON fixtures: `sample_item.json` and `sample_page.json` are included at the repository root — use these as test fixtures or examples when constructing unit/integration tests.
 
