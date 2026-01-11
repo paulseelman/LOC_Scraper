@@ -12,13 +12,13 @@ A small, focused command-line tool to iterate Library of Congress (LoC) collecti
 - Skip unchanged files (to avoid re-downloading)
 - Configurable page size, start page, polite delay, and toggles to skip JSON or images
 
-## What's New (2026-01-04) ✨
+## What's New (2026-01-11) ✨
 
-- **`--collection` convenience option**: pass a collection short-name (e.g. `bain`, `brady-handy`) and the `--base-url` and `--output-dir` will be derived automatically when those flags are omitted (e.g., `--collection bain` => base URL `https://www.loc.gov/collections/bain/` and output dir `bain`). (PR: https://github.com/paulseelman/LOC_Scraper/pull/6)
+- **Updated documentation to use `python3`**: All documentation now uses `python3` instead of `python` for consistency and to ensure users use Python 3 explicitly. (PR: https://github.com/paulseelman/LOC_Scraper/pull/17)
 
-- **Self-check re-run on exhausted page fetch retries**: if a fetch for the next page fails after exhausting retries (default 4), the scraper will schedule a one-time background self-check run — it finishes current work and spawns a subprocess that re-invokes the script with a hidden `--self-check-run` flag so the child won't re-spawn further. This helps detect and verify transient network issues. (PR: https://github.com/paulseelman/LOC_Scraper/pull/7)
+- **Save item JSON using image stem when available**: When an item contains image filenames like `37158u.tif` or `37158r.jpg`, the item's JSON is now saved as `37158.json` instead of `item.json` (falls back to `item.json` when no usable image name is found). (PR: https://github.com/paulseelman/LOC_Scraper/pull/16)
 
-- **Per-item image-set stats and cumulative session reporting**: after each item where one or more images were downloaded, the scraper emits a concise info line showing the cumulative number of image sets downloaded and the cumulative bytes downloaded in the current run. This helps monitor progress and bandwidth usage during long runs. (PR: https://github.com/paulseelman/LOC_Scraper/pull/11)
+- **Changed default collection to 'bain'**: The scraper's default collection is now `bain` (was `brady-handy`). (PR: https://github.com/paulseelman/LOC_Scraper/pull/15)
 
 ---
 
